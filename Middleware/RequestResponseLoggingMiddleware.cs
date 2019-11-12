@@ -37,7 +37,6 @@ namespace ModelValidationErrorSample.Middleware
             await request.Body.ReadAsync(buffer, 0, buffer.Length);
             var requestBody = Encoding.UTF8.GetString(buffer);
             body.Seek(0, SeekOrigin.Begin);
-            body.Position = 0;
 
             return requestBody;
         }
