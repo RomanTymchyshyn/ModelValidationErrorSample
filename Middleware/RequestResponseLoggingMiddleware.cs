@@ -6,16 +6,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace ModelValidationErrorSample.Middleware
 {
-    public class RequestResponseLoggingMiddleware
+    public class RequestResponseLoggingMiddleware: IMiddleware
     {
-        private readonly RequestDelegate next;
-
-        public RequestResponseLoggingMiddleware(RequestDelegate next)
-        {
-            this.next = next;
-        }
-
-        public async Task Invoke(HttpContext context)
+        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             var request = context.Request;
 

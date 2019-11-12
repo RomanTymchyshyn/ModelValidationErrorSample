@@ -12,6 +12,8 @@ namespace ModelValidationErrorSample
             services
                 .AddControllers()
                 .AddNewtonsoftJson();
+
+            services.AddTransient<RequestResponseLoggingMiddleware>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
