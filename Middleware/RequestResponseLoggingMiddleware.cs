@@ -26,9 +26,28 @@ namespace ModelValidationErrorSample.Middleware
             var body = request.Body;
 
             body.Seek(0, SeekOrigin.Begin);
-            var buffer = new byte[Convert.ToInt32(request.ContentLength)];
-            await request.Body.ReadAsync(buffer, 0, buffer.Length);
-            var requestBody = Encoding.UTF8.GetString(buffer);
+
+            // this works as expected, reads the whole body
+            var requestBody = await new StreamReader(request.Body).ReadToEndAsync();
+            
+            // this does not read the whole buffer
+//            var buffer = new byte[Convert.ToInt32(request.ContentLength)];
+//
+//            // this count is <= buffer.Length
+//            var read = await request.Body.ReadAsync(buffer, 0, buffer.Length);
+//            var requestBody = Encoding.UTF8.GetString(buffer);
+//
+//            // try to read more
+//            try
+//            {
+//                // this count is > 0
+//                var read = await request.Body.ReadAsync(buffer, 0, buffer.Length);
+//            }
+//            catch (Exception e)
+//            {
+//                Console.WriteLine(e);
+//            }
+
             body.Seek(0, SeekOrigin.Begin);
 
             return requestBody;
